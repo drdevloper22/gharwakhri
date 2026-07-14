@@ -1,0 +1,222 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account | Nutan Decore</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href='{% static "login.css" %}?v=2.0'>
+</head>
+
+<body>
+
+    <!-- Toast Notification -->
+    {% if error %}
+        {% if error_type == 'user_exists' %}
+        <div class="toast toast-error show" id="toastMsg">
+            <div class="toast-icon"><i class="fas fa-user-check"></i></div>
+            <div class="toast-body">
+                <strong>User Already Exists</strong>
+                <span>{{ error }}</span>
+                <a href="{% url 'login' %}" class="toast-action">Go to Login →</a>
+            </div>
+            <button class="toast-close" onclick="closeToast()"><i class="fas fa-times"></i></button>
+        </div>
+        {% else %}
+        <div class="toast toast-error show" id="toastMsg">
+            <div class="toast-icon"><i class="fas fa-exclamation-circle"></i></div>
+            <div class="toast-body">
+                <strong>Sign Up Error</strong>
+                <span>{{ error }}</span>
+            </div>
+            <button class="toast-close" onclick="closeToast()"><i class="fas fa-times"></i></button>
+        </div>
+        {% endif %}
+    {% endif %}
+
+    <div class="auth-bg">
+        <div class="auth-split">
+
+            <!-- Left Panel -->
+            <div class="auth-left signup-left">
+                <div class="auth-left-content">
+                    <h1 class="brand-name">Nutan Decore</h1>
+                    <p class="brand-tagline">Join the Family</p>
+                    <div class="brand-divider"></div>
+                    <p class="brand-desc">Create your account and explore a world of premium home décor and lifestyle
+                        products.</p>
+                    <div class="perks">
+                        <div class="perk-item"><i class="fas fa-check-circle"></i> <span>Exclusive member
+                                discounts</span></div>
+                        <div class="perk-item"><i class="fas fa-check-circle"></i> <span>Order tracking & history</span>
+                        </div>
+                        <div class="perk-item"><i class="fas fa-check-circle"></i> <span>Wishlist & saved items</span>
+                        </div>
+                        <div class="perk-item"><i class="fas fa-check-circle"></i> <span>Priority customer
+                                support</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="auth-right">
+                <div class="auth-box">
+                    <div class="auth-header">
+                        <h2>Create Account</h2>
+                        <p class="auth-subtitle">Start your luxury journey today</p>
+                    </div>
+
+                    <form method="POST" action="{% url 'signup_submit' %}" id="signupForm"
+                        onsubmit="return validateSignup()">
+                        {% csrf_token %}
+
+                        <div class="input-group">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" name="user" id="reg_username" placeholder=" "
+                                value="{{ username_val|default:'' }}" required autocomplete="username"
+                                oninput="checkUsername(this)">
+                            <label for="reg_username">Username</label>
+                            <span class="field-hint" id="usernameHint"></span>
+                        </div>
+
+                        <div class="input-group">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" name="password" id="reg_password" placeholder=" " required
+                                autocomplete="new-password">
+                            <label for="reg_password">Password</label>
+                            <button type="button" class="eye-toggle" onclick="togglePassword('reg_password', this)"
+                                tabindex="-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+
+
+                        <div class="input-group">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" name="confirm_password" id="confirm_password" placeholder=" "
+                                required autocomplete="new-password" oninput="checkMatch()">
+                            <label for="confirm_password">Confirm Password</label>
+                            <button type="button" class="eye-toggle" onclick="togglePassword('confirm_password', this)"
+                                tabindex="-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="field-hint" id="matchHint"></span>
+
+                        <button type="submit" class="btn-auth" id="submitBtn">
+                            <span>Create Account</span>
+                            <i class="fas fa-user-plus"></i>
+                        </button>
+                    </form>
+
+                    <div class="auth-divider">
+                        <span>or</span>
+                    </div>
+
+                    <p class="switch-text">
+                        Already have an account?
+                        <a href="{% url 'login' %}">Sign In</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Auto dismiss toast
+        const toast = document.getElementById('toastMsg');
+        if (toast) {
+            setTimeout(() => {
+                toast.classList.add('toast-hide');
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+
+        function closeToast() {
+            const t = document.getElementById('toastMsg');
+            if (t) {
+                t.classList.add('toast-hide');
+                setTimeout(() => t.remove(), 400);
+            }
+        }
+
+        function togglePassword(fieldId, btn) {
+            const input = document.getElementById(fieldId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        function checkMatch() {
+            const p = document.getElementById('reg_password').value;
+            const c = document.getElementById('confirm_password').value;
+            const hint = document.getElementById('matchHint');
+            if (!c) { hint.textContent = ''; return; }
+            if (p === c) {
+                hint.textContent = '✓ Passwords match';
+                hint.style.color = '#2ecc71';
+            } else {
+                hint.textContent = '✗ Passwords do not match';
+                hint.style.color = '#e74c3c';
+            }
+        }
+
+        function checkUsername(input) {
+            const hint = document.getElementById('usernameHint');
+            if (input.value.length < 3) {
+                hint.textContent = 'Username must be at least 3 characters';
+                hint.style.color = '#e67e22';
+            } else {
+                hint.textContent = '';
+            }
+        }
+
+        function validateSignup() {
+            const p = document.getElementById('reg_password').value;
+            const c = document.getElementById('confirm_password').value;
+            const u = document.getElementById('reg_username').value;
+            if (u.length < 3) {
+                showClientToast('Username must be at least 3 characters.');
+                return false;
+            }
+            if (p !== c) {
+                showClientToast('Passwords do not match.');
+                return false;
+            }
+            if (p.length < 6) {
+                showClientToast('Password must be at least 6 characters.');
+                return false;
+            }
+            return true;
+        }
+
+        function showClientToast(msg) {
+            const existing = document.getElementById('clientToast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast toast-error show';
+            toast.id = 'clientToast';
+            toast.innerHTML = `
+                <div class="toast-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="toast-body"><strong>Error</strong><span>${msg}</span></div>
+                <button class="toast-close" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.classList.add('toast-hide'); setTimeout(() => toast.remove(), 400); }, 3500);
+        }
+    </script>
+
+</body>
+
+</html>
