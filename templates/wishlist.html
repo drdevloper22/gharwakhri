@@ -1,0 +1,189 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharwakhari | My Wishlist</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href='{% static "style.css" %}'>
+    <style>
+        .cart-section {
+            padding: 80px 20px;
+            min-height: 60vh;
+            background-color: #fcfbf8;
+        }
+
+        .cart-container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .cart-header {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            color: #2c2926;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+            padding: 0 20px;
+            text-align: left;
+        }
+
+        .cart-item-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .cart-item-info p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .remove-btn {
+            color: #d9534f;
+            cursor: pointer;
+            font-size: 1.2rem;
+            border: none;
+            background: none;
+            margin-left: 15px;
+        }
+
+        .btn-add-cart {
+            background-color: #2c2926;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            display: inline-block;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-add-cart:hover {
+            background-color: #c7a17a;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #777;
+            font-size: 1.2rem;
+            padding: 40px 0;
+        }
+        
+        .action-btns {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <a href="{% url 'Ghar' %}" class="logo">Gharwakhari</a>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{% url 'Ghar' %}">Home</a></li>
+                    <li><a href="{% url 'Ghar' %}#shop">Shop</a></li>
+                    <li><a href="{% url 'account' %}">My Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="cart-section">
+        <div class="cart-container">
+            <h2 class="cart-header">My Wishlist</h2>
+            <div id="wishlist-container">
+                <!-- Items will be injected here by JS -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let wishlist = JSON.parse(localStorage.getItem('ghar_wishlist')) || [];
+            let cart = JSON.parse(localStorage.getItem('ghar_cart')) || [];
+            const container = document.getElementById('wishlist-container');
+
+            function renderWishlist() {
+                container.innerHTML = '';
+                if (wishlist.length === 0) {
+                    container.innerHTML = '<div class="empty-cart">Your wishlist is currently empty.</div>';
+                    return;
+                }
+
+                wishlist.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    div.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>${item.priceText}</p>
+                        </div>
+                        <div class="action-btns">
+                            <button class="btn-add-cart" onclick="addToCart(${index})">Add to Cart</button>
+                            <button class="remove-btn" onclick="removeItem(${index})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+
+            window.removeItem = function (index) {
+                wishlist.splice(index, 1);
+                localStorage.setItem('ghar_wishlist', JSON.stringify(wishlist));
+                renderWishlist();
+            };
+
+            window.addToCart = function (index) {
+                const item = wishlist[index];
+                const existingItem = cart.find(cartItem => cartItem.name === item.name);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ name: item.name, price: item.price, image: item.image, priceText: item.priceText, quantity: 1 });
+                }
+                localStorage.setItem('ghar_cart', JSON.stringify(cart));
+                
+                alert('Item added to cart!');
+            };
+
+            renderWishlist();
+        });
+    </script>
+</body>
+
+</html>
