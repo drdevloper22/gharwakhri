@@ -1,0 +1,23 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Python / Django
+__pycache__/
+*.pyc
+*.pyo
+db.sqlite3
+*.env
+venv/
+env/
+
+# Node
+node_modules/
