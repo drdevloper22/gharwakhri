@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us | Gharwakhari</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Same CSS -->
+    <link rel="stylesheet" href='{% static "style.css" %}' >
+</head>
+<body>
+
+<!-- HEADER (Same as index) -->
+<header class="header">
+    <div class="container nav-container">
+        <a href="{% url 'Ghar' %}" class="logo">Gharwakhari</a>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="{% url 'Ghar' %}">Home</a></li>
+                <li><a href="{% url 'a' %}">About</a></li>
+                <li><a href="{% url 'C' %}">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- CONTACT SECTION -->
+<section class="section" style="margin-top:90px;">
+    <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+
+        <p style="text-align:center; margin-bottom:40px;">
+            This is a trial contact page created for practice and learning purpose.
+        </p>
+
+        <!-- CONTACT INFO -->
+        <div class="grid-3">
+            <div class="feature-box">
+                <div class="icon">📍</div>
+                <h3>Location</h3>
+                <p>Ahmedabad, Gujarat, India</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="icon">📞</div>
+                <h3>Phone</h3>
+                <p>+91 98765 43210</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="icon">✉️</div>
+                <h3>Email</h3>
+                <p>support@gharwakhari.com</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section class="section bg-cream">
+    <div class="container">
+        <h2 class="section-title">Send a Message</h2>
+
+        <form style="max-width:600px; margin:0 auto;">
+            <input type="text" placeholder="Your Name" required
+                   style="width:100%; padding:12px; margin-bottom:15px;">
+
+            <input type="email" placeholder="Your Email" required
+                   style="width:100%; padding:12px; margin-bottom:15px;">
+
+            <textarea placeholder="Your Message" rows="5" required
+                      style="width:100%; padding:12px; margin-bottom:20px;"></textarea>
+
+            <button type="submit" class="btn btn-primary">
+                Send Message
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- FOOTER (Same style) -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-bottom">
+            <p>&copy; 2023 Gharwakhari. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
