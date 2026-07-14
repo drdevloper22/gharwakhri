@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us | Gharwakhari</title>
+   <link rel="stylesheet" href='{% static "style.css" %}' >
+</head>
+<body>
+
+<header class="header">
+    <div class="container nav-container">
+        <a href="{% url 'Ghar' %}" class="logo">Gharwakhari</a>
+        <nav class="navbar">
+            <ul>
+                <li><a href="{% url 'Ghar' %}">Home</a></li>
+                <li><a href="{% url 'a' %}" class="active">About</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="section" style="margin-top:80px;">
+    <div class="container">
+        <h2 class="section-title">About Gharwakhari</h2>
+        <p>
+            Gharwakhari is a trial e-commerce website created for learning and practice.
+            This platform showcases different categories such as home décor, gift items,
+            and lifestyle products with a clean and modern design.
+        </p>
+
+        <p>
+            Our goal is to understand front-end design, layout structuring,
+            and user experience using HTML and CSS.
+        </p>
+    </div>
+</section>
+
+</body>
+</html>
