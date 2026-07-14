@@ -1,0 +1,407 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharwakhari | My Account</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href='{% static "style.css" %}'>
+    <style>
+        .account-section {
+            padding: 80px 20px;
+            min-height: 80vh;
+            background-color: #f1f3f6;
+            /* A slight grey background like Flipkart */
+        }
+
+        .account-layout {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        /* Sidebar Styles */
+        .account-sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .user-profile-card {
+            background: #fff;
+            padding: 15px 20px;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: #c7a17a;
+            /* Gold brand color */
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .user-info p {
+            margin: 0;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .user-info h3 {
+            margin: 0;
+            font-size: 16px;
+            font-family: 'Lato', sans-serif;
+            color: #000;
+        }
+
+        .sidebar-menu {
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .menu-section {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .menu-section:last-child {
+            border-bottom: none;
+        }
+
+        .menu-header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #878787;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .menu-header i {
+            color: #c7a17a;
+            /* Brand color */
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .menu-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-items li a {
+            display: block;
+            padding: 12px 20px 12px 55px;
+            /* Indent to align with text */
+            color: #000;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .menu-items li a:hover,
+        .menu-items li a.active {
+            color: #c7a17a;
+            background-color: #f9f9f9;
+        }
+
+        /* Main Content Styles */
+        .account-main {
+            flex-grow: 1;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            min-height: 500px;
+        }
+
+        .account-header {
+            font-family: 'Lato', sans-serif;
+            /* Use sans-serif for modern look */
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .orders-container {
+            margin-top: 20px;
+        }
+
+        .order-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            transition: box-shadow 0.2s;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .order-header h4 {
+            margin: 0;
+            font-size: 14px;
+            color: #000;
+        }
+
+        .order-header .badge {
+            background: #26a541;
+            /* Success green like flipkart */
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 2px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .order-body {
+            padding: 20px;
+        }
+
+        .delivery-info {
+            font-size: 14px;
+            color: #212121;
+            margin-bottom: 15px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .order-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .order-item img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            margin-right: 20px;
+        }
+
+        .order-item-info {
+            flex: 1;
+        }
+
+        .order-item-info h5 {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            color: #212121;
+            font-weight: 400;
+        }
+
+        .order-item-info p {
+            margin: 0;
+            font-size: 13px;
+            color: #878787;
+        }
+
+        .order-item-price {
+            font-weight: 600;
+            font-size: 16px;
+            color: #212121;
+            width: 120px;
+            text-align: right;
+        }
+
+        .empty-orders {
+            text-align: center;
+            color: #878787;
+            padding: 60px 20px;
+        }
+
+        .btn-shop {
+            background-color: var(--color-maroon);
+            color: #fff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 2px;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-shop:hover {
+            background-color: var(--color-gold);
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .account-layout {
+                flex-direction: column;
+            }
+
+            .account-sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <a href="{% url 'Ghar' %}" class="logo">Gharwakhari</a>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{% url 'Ghar' %}">Home</a></li>
+                    <li><a href="{% url 'Ghar' %}#shop">Shop</a></li>
+                    <li><a href="{% url 'login' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="account-section">
+        <div class="account-layout">
+            <!-- Sidebar -->
+            <div class="account-sidebar">
+                <div class="user-profile-card">
+                    <div class="user-avatar">
+                        {% if username %}{{ username|make_list|first|upper }}{% else %}U{% endif %}
+                    </div>
+                    <div class="user-info">
+                        <p>Hello,</p>
+                        <h3>{% if username %}{{ username }}{% else %}User{% endif %}</h3>
+                    </div>
+                </div>
+
+                <div class="sidebar-menu">
+                    <div class="menu-section">
+                        <div class="menu-header">
+                            <i class="fas fa-box"></i> My Orders
+                        </div>
+                        <ul class="menu-items">
+                            <li><a href="#" class="active">Order History</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="menu-section">
+                        <div class="menu-header">
+                            <i class="fas fa-user"></i> Account Settings
+                        </div>
+                        <ul class="menu-items">
+                            <li><a href="#">Profile Information</a></li>
+                            <li><a href="#">Manage Addresses</a></li>
+                            <li><a href="#">PAN Card Information</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="menu-section">
+                        <div class="menu-header">
+                            <i class="fas fa-folder-open"></i> My Stuff
+                        </div>
+                        <ul class="menu-items">
+                            <li><a href="#">My Reviews & Ratings</a></li>
+                            <li><a href="#">All Notifications</a></li>
+                            <li><a href="{% url 'wishlist' %}">My Wishlist</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="menu-section" style="padding: 15px 20px; border-top: 1px solid #f0f0f0;">
+                        <a href="{% url 'login' %}"
+                            style="color: #878787; text-decoration: none; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 15px;">
+                            <i class="fas fa-power-off"
+                                style="color: var(--color-maroon); font-size: 1.2rem; width: 20px; text-align: center;"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="account-main">
+                <h2 class="account-header">My Orders</h2>
+
+                <div class="orders-container">
+                    {% if orders %}
+                    {% for order in orders %}
+                    <div class="order-card">
+                        <div class="order-header">
+                            <h4>Order ID: OD100{{ order.id }}9543{{ order.id }}</h4>
+                            <span class="badge">Delivered</span>
+                        </div>
+
+                        <div class="order-body">
+                            <div class="delivery-info">
+                                <strong>Delivery Address:</strong> {{ order.name }}, {{ order.address }} - {{
+                                order.phone }}
+                            </div>
+
+                            {% if order.parsed_cart %}
+                            <div style="border-top: 1px solid #f0f0f0; margin-top: 15px; padding-top: 15px;">
+                                {% for item in order.parsed_cart %}
+                                <div class="order-item">
+                                    <img src="{{ item.image }}" alt="{{ item.name }}">
+                                    <div class="order-item-info">
+                                        <h5>{{ item.name }}</h5>
+                                        <p>Qty: {{ item.quantity }}</p>
+                                    </div>
+                                    <div class="order-item-price">
+                                        {{ item.priceText }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            <p style="color: #878787; font-size: 14px; margin-top: 15px;">No detailed item information
+                                available.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="empty-orders">
+                        <i class="fas fa-box-open" style="font-size: 4rem; color: #ccc; margin-bottom: 20px;"></i>
+                        <h4 style="font-size: 18px; color: #000; margin-bottom: 10px;">No Orders Yet</h4>
+                        <p style="margin-bottom: 20px;">Looks like you haven't placed an order yet.</p>
+                        <a href="{% url 'Ghar' %}#shop" class="btn-shop">Start Shopping</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
