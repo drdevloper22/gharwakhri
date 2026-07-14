@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharwakhari | Admin Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href='{% static "style.css" %}'>
+</head>
+<body>
+    <div class="auth-section">
+        <div class="auth-box">
+            <h1 class="brand-logo">Register Admin</h1>
+            <p class="auth-subtitle">Create a new owner or admin account.</p>
+
+            <form action="{% url 'admin_signup_submit' %}" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" name="username" required>
+                    <label>Choose a Username</label>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" name="password" required>
+                    <label>Choose a Password</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">SIGN UP</button>
+            </form>
+
+            <div class="switch-text">
+                <a href="{% url 'admin_login' %}">Already have an account? Login</a>
+            </div>
+            <div class="switch-text" style="margin-top: 10px;">
+                <a href="{% url 'Ghar' %}" style="color: #555; font-size: 0.8rem; text-decoration: underline;"><i class="fas fa-arrow-left"></i> Back to Store</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
