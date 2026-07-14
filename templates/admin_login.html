@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharwakhari | Admin Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href='{% static "login.css" %}'>
+</head>
+
+<body>
+    <div class="auth-section">
+        <div class="auth-box">
+            <h1 class="brand-logo">Gharwakhari Admin</h1>
+            <p class="auth-subtitle">Welcome back. Please enter your admin credentials.</p>
+
+            <form action="{% url 'admin_login_submit' %}" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" name="username" required>
+                    <label>Admin Username</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">LOGIN TO
+                    DASHBOARD</button>
+            </form>
+
+            <div class="switch-text">
+                <a href="{% url 'admin_signup' %}">Create an Admin Account</a>
+            </div>
+            <div class="switch-text" style="margin-top: 10px;">
+                <a href="{% url 'Ghar' %}" style="color: #555; font-size: 0.8rem; text-decoration: underline;"><i
+                        class="fas fa-arrow-left"></i> Back to Store</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
