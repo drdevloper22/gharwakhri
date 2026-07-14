@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharwakhari | Authentic Style</title>
+    <meta name="description" content="Gharwakhari - Authentic Style for Every Home & Lifestyle. Shop handcrafted elegance where tradition meets modern luxury.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .location-map-container {
+            max-width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .location-map-container iframe {
+            width: 800px !important;
+            height: 450px !important;
+            margin-left: 0 !important;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease !important;
+        }
+        .location-map-container iframe:hover {
+            transform: scale(1.05) !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+        }
+    </style>
+</head>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let wishlist = JSON.parse(localStorage.getItem('ghar_wishlist')) || [];
+        const wishlistCountEl = document.querySelector('.wishlist-count');
+        function updateWishlistCount() {
+            if (wishlistCountEl) wishlistCountEl.textContent = wishlist.length;
+        }
+        updateWishlistCount();
+
+        document.querySelectorAll('.product-details .wishlist-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const btn = e.currentTarget;
+                const productCard = btn.closest('.product-card');
+                if (!productCard) return;
+                const name = productCard.querySelector('h4').textContent;
+                const priceText = productCard.querySelector('.price').textContent;
+                const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+                const image = productCard.querySelector('img').src;
+                const existingItemIndex = wishlist.findIndex(item => item.name === name);
+                if (existingItemIndex > -1) {
+                    wishlist.splice(existingItemIndex, 1);
+                    btn.querySelector('i').classList.remove('fas');
+                    btn.querySelector('i').classList.add('far');
+                    btn.style.color = 'inherit';
+                } else {
+                    wishlist.push({ name, price, image, priceText });
+                    btn.querySelector('i').classList.remove('far');
+                    btn.querySelector('i').classList.add('fas');
+                    btn.style.color = 'var(--color-maroon)';
+                }
+                localStorage.setItem('ghar_wishlist', JSON.stringify(wishlist));
+                updateWishlistCount();
+            });
+        });
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            const name = card.querySelector('h4').textContent;
+            if (wishlist.some(item => item.name === name)) {
+                const btn = card.querySelector('.wishlist-btn');
+                if (btn) {
+                    btn.querySelector('i').classList.remove('far');
+                    btn.querySelector('i').classList.add('fas');
+                    btn.style.color = 'var(--color-maroon)';
+                }
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        let cart = JSON.parse(localStorage.getItem('ghar_cart')) || [];
+        const cartCountEl = document.querySelector('.cart-count');
+        function updateCartCount() {
+            if (cartCountEl) cartCountEl.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        }
+        updateCartCount();
+
+        document.querySelectorAll('.product-details .add-cart-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const productCard = e.target.closest('.product-card');
+                if (!productCard) return;
+                const name = productCard.querySelector('h4').textContent;
+                const priceText = productCard.querySelector('.price').textContent;
+                const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+                const image = productCard.querySelector('img').src;
+                const existingItem = cart.find(item => item.name === name);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ name, price, image, quantity: 1, priceText });
+                }
+                localStorage.setItem('ghar_cart', JSON.stringify(cart));
+                updateCartCount();
+                const originalText = button.textContent;
+                button.textContent = "Added to Cart!";
+                setTimeout(() => { button.textContent = originalText; }, 1500);
+            });
+        });
+    });
+
+    function filterProducts(category) {
+        const products = document.querySelectorAll('.product-card');
+        products.forEach(product => {
+            product.style.display = product.dataset.category === category ? "block" : "none";
+        });
+        document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
+    }
+</script>
+
+<body>
+
+    <header class="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Gharwakhari</a>
+
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="nav-toggle-label">
+                <span></span>
+            </label>
+
+            <nav class="navbar">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-icons">
+                <a href="cart.html" class="cart-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Authentic Style for Every Home &amp; LifeStyle</h1>
+            <p>Shop handcrafted elegance with Gharwakhari. Where tradition meets modern luxury.</p>
+            <a href="#shop" class="btn btn-primary">Shop Now</a>
+        </div>
+    </section>
+
+    <section id="categories" class="section">
+        <div class="container">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="grid-3">
+                <div class="category-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa30yF32vuLqI7KbVoLDoGECgDXGUpM1uGqw&s" alt="Gift Items">
+                    <div class="cat-info">
+                        <h3> Gift Items </h3>
+                        <a href="#" onclick="filterProducts('gift')">Explore</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=800&auto=format&fit=crop" alt="Home Decor">
+                    <div class="cat-info">
+                        <h3>Home Decor</h3>
+                        <a href="#" onclick="filterProducts('home')">Explore</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_JAe-o-lRrsL4o0FvgvuEv3xWceO5PfdfRQ&s" alt="Soulful Living">
+                    <div class="cat-info">
+                        <h3>Life Style</h3>
+                        <a href="#" onclick="filterProducts('life')">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop" class="section bg-cream">
+        <div class="container">
+            <h2 class="section-title">Featured Collection</h2>
+            <div class="grid-4">
+                <div class="product-card" data-category="home">
+                    <div class="product-img">
+                        <img src="https://cdn.swadeshonline.com/v2/patient-paper-41f385/swad-p/wrkr/products/pictures/item/free/450x0/xKdTER1-r03-VDSPVS61BK87544_1.jpg" alt="clock">
+                    </div>
+                    <div class="product-details">
+                        <h4>Tripod Table Top Clock</h4>
+                        <h4># Home Decore Product</h4>
+                        <p class="price">₹1,699</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-category="gift">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1590736969955-71cc94801759?q=80&w=600&auto=format&fit=crop" alt="Vase">
+                    </div>
+                    <div class="product-details">
+                        <h4>Brass Vintage Vase</h4>
+                        <h4># Gift Item </h4>
+                        <p class="price">₹1,299</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-category="home">
+                    <div class="product-img">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkv8uww-K7uvCEfEJI2aoMq8S6rVf2SYeqjQ&s" alt="wardrobe">
+                    </div>
+                    <div class="product-details">
+                        <h4>8 Dore Plastic Sheet Wardrobe </h4>
+                        <h4># Home Decore Product</h4>
+                        <p class="price">₹2,150</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-category="gift">
+                    <div class="product-img">
+                        <img src="https://bespokebliss.in/wp-content/uploads/2024/10/premium-corporate-gifts-and-festive-gift.jpg" alt="BesPoke">
+                    </div>
+                    <div class="product-details">
+                        <h4>BesPoke Bliss Set </h4>
+                        <h4># Gift Item </h4>
+                        <p class="price">₹999</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-category="life">
+                    <div class="product-img">
+                        <img src="https://www.fridaycharm.com/cdn/shop/products/dL6ny8_1800x1800.jpg?v=1563883275" alt="perfume">
+                    </div>
+                    <div class="product-details">
+                        <h4>Gucci Oud Intense Eau De Parfum For Unisex </h4>
+                        <h4># Life Style </h4>
+                        <p class="price">₹11,500</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-category="life">
+                    <div class="product-img">
+                        <img src="https://images.samsung.com/is/image/samsung/p6pim/in/f2507/gallery/in-galaxy-watch8-classic-l505-sm-l505fzkains-thumb-547660119?$Q90_330_330_F_PNG$" alt="Watch">
+                    </div>
+                    <div class="product-details">
+                        <h4>Galaxy Watch8 Classic </h4>
+                        <h4># Life Style </h4>
+                        <p class="price">₹11,500</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-category="gift">
+                    <div class="product-img">
+                        <img src="https://www.milton.in/cdn/shop/files/Aura_1000_Black_1.jpg?v=1736934849&width=1240" alt="Milton Bottle">
+                    </div>
+                    <div class="product-details">
+                        <h4>Milton Aura 1000ml Bottle </h4>
+                        <h4># Gift </h4>
+                        <p class="price">₹11,500</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features-section">
+        <div class="container">
+            <div class="grid-4 features-grid">
+                <div class="feature-box">
+                    <div class="icon">✨</div>
+                    <h3>Quality Products</h3>
+                    <p>I Will Show This Website Product Is No Duplicate Product , So U Can Trust And Purchase .</p>
+                </div>
+                <div class="feature-box">
+                    <div class="icon">💎</div>
+                    <h3>Premium Quality</h3>
+                    <p>Only the finest materials used.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="icon">🚚</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Shipping across India in 3-5 days.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="icon">🔒</div>
+                    <h3>Secure Payment</h3>
+                    <p>100% safe and encrypted transactions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container">
+            <h2>Join the Gharwakhari Family</h2>
+            <p>Subscribe for exclusive updates and 10% off your first order.</p>
+            <form class="subscribe-form" action="#" onsubmit="event.preventDefault();">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="location" class="section bg-cream">
+        <div class="container">
+            <h2 class="section-title">Our Location</h2>
+            <p style="text-align:center; margin-bottom:30px;">Visit us or find our store location below.</p>
+            <div class="location-map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.40448061362!2d72.5439660745419!3d23.08228461409866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e836ad6b00c09%3A0xdea8a9766c5ae827!2sGharwakhari%20.Hardik%20Associates!5e0!3m2!1sen!2sin!4v1769025620237!5m2!1sen!2sin"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Gharwakhari</h3>
+                    <p>Bringing the essence of Indian tradition to your modern lifestyle through premium clothing and decor.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/gharwakhari_hardikassociates?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" id="instagram-icon" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#">FB</a>
+                        <a href="#">TW</a>
+                        <a href="#">PI</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Gharwakhari. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
