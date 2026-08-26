@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharwakhari | Checkout & Payment</title>
+    <meta name="description" content="Secure checkout and payment processing for Gharwakhari.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .checkout-page {
+            font-family: 'Lato', sans-serif;
+            background-color: #f1f3f6;
+            color: #212121;
+            padding: 40px 0;
+            min-height: 80vh;
+        }
+
+        .checkout-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .left-col {
+            flex: 1;
+        }
+
+        .right-col {
+            width: 340px;
+        }
+
+        .step-section {
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .step-number {
+            background: var(--color-maroon, #701C1C);
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50%;
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .payment-box {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .box-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background-color: #f9f9f9;
+            font-weight: 600;
+            color: #212121;
+        }
+
+        .payment-option {
+            padding: 18px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .payment-option.active {
+            background-color: #faf6f0;
+        }
+
+        .radio-btn {
+            margin-top: 4px;
+            accent-color: var(--color-maroon, #701C1C);
+            transform: scale(1.2);
+        }
+
+        .option-details {
+            flex: 1;
+        }
+
+        .option-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: #212121;
+        }
+
+        .option-desc {
+            color: #777;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .upi-container {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+        }
+
+        .upi-highlight {
+            font-weight: bold;
+            color: #26a541;
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .btn-verify {
+            background: var(--color-maroon, #701C1C);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        .btn-verify:hover {
+            background-color: var(--color-gold, #C5A059);
+            color: #000;
+        }
+
+        .order-summary {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            margin-bottom: 15px;
+            color: #212121;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            color: #212121;
+            border-top: 1px dashed #e0e0e0;
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .free-delivery {
+            color: #388e3c;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container {
+                flex-direction: column;
+            }
+
+            .right-col {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Gharwakhari</a>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="checkout-page">
+        <div class="checkout-container">
+            <div class="left-col">
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number"><i class="fas fa-check" style="font-size: 0.8rem;"></i></div>
+                        <div class="step-title">DELIVERY ADDRESS</div>
+                    </div>
+                    <div id="address-display" style="color: #555; font-size: 0.95rem; line-height: 1.5; padding-left: 45px;"></div>
+                </div>
+
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">PAYMENT OPTIONS</div>
+                    </div>
+
+                    <div class="payment-box">
+                        <div class="payment-option active" id="upi-option" onclick="togglePayment('upi')">
+                            <input type="radio" name="payment_method" class="radio-btn" id="radio-upi" checked>
+                            <div class="option-details">
+                                <div class="option-title"><i class="fas fa-qrcode" style="color: var(--color-maroon);"></i> UPI / PhonePe / GPay / Paytm</div>
+                                <div class="upi-container" id="upi-container">
+                                    <p class="option-desc">Scan or pay directly to our official business UPI ID / phone number:</p>
+                                    <p class="upi-highlight">UPI ID / Mobile: +91 8128086732</p>
+
+                                    <form onsubmit="handlePaymentSubmit(event, 'UPI')">
+                                        <label style="font-size: 13px; font-weight: 600; color: #212121; display: block; margin-bottom: 5px;">Enter Transaction ID / UTR Number from your payment app:</label>
+                                        <input type="text" id="transaction_id" placeholder="e.g. 301234567890" required>
+                                        <button type="submit" class="btn-verify">VERIFY RECEIPT & PLACE ORDER</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-option" id="cod-option" onclick="togglePayment('cod')">
+                            <input type="radio" name="payment_method" class="radio-btn" id="radio-cod">
+                            <div class="option-details">
+                                <div class="option-title"><i class="fas fa-money-bill-wave" style="color: #388e3c;"></i> Cash on Delivery (COD)</div>
+                                <div class="option-desc">Pay cash or UPI directly to delivery agent upon item delivery.</div>
+                                <div class="cod-container" id="cod-container" style="display: none; margin-top: 15px;">
+                                    <form onsubmit="handlePaymentSubmit(event, 'COD')">
+                                        <button type="submit" class="btn-verify" style="background-color: #fb641b;">CONFIRM ORDER (CASH ON DELIVERY)</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="order-summary">
+                    <h3 class="summary-title">Price Details</h3>
+                    <div class="summary-row">
+                        <span>Items (<span id="summary-qty">0</span>)</span>
+                        <span id="summary-subtotal">₹0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery Charges</span>
+                        <span class="free-delivery">FREE</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total Payable</span>
+                        <span id="summary-total" style="color: var(--color-maroon, #701C1C);">₹0</span>
+                    </div>
+                    <p style="font-size: 12px; color: #878787; text-align: center; margin-top: 15px;">
+                        <i class="fas fa-shield-alt" style="color: #26a541;"></i> 100% Safe & Encrypted Purchase
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let deliveryInfo = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            cart = JSON.parse(localStorage.getItem('ghar_cart')) || [];
+            deliveryInfo = JSON.parse(localStorage.getItem('ghar_pending_delivery'));
+
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                window.location.href = "index.html#shop";
+                return;
+            }
+
+            if (!deliveryInfo) {
+                alert("Please enter delivery details first.");
+                window.location.href = "delivery.html";
+                return;
+            }
+
+            // Display Address
+            document.getElementById('address-display').innerHTML = `
+                <strong>${deliveryInfo.name}</strong> (${deliveryInfo.phone})<br>
+                ${deliveryInfo.address}
+            `;
+
+            // Calculate totals
+            let totalQty = cart.reduce((tot, item) => tot + item.quantity, 0);
+            let totalAmount = cart.reduce((tot, item) => tot + (item.price * item.quantity), 0);
+
+            document.getElementById('summary-qty').textContent = totalQty;
+            document.getElementById('summary-subtotal').textContent = '₹' + totalAmount.toLocaleString('en-IN');
+            document.getElementById('summary-total').textContent = '₹' + totalAmount.toLocaleString('en-IN');
+        });
+
+        function togglePayment(method) {
+            const upiContainer = document.getElementById('upi-container');
+            const codContainer = document.getElementById('cod-container');
+            const upiOption = document.getElementById('upi-option');
+            const codOption = document.getElementById('cod-option');
+            const radioUpi = document.getElementById('radio-upi');
+            const radioCod = document.getElementById('radio-cod');
+
+            if (method === 'upi') {
+                upiContainer.style.display = 'block';
+                codContainer.style.display = 'none';
+                upiOption.classList.add('active');
+                codOption.classList.remove('active');
+                radioUpi.checked = true;
+            } else {
+                upiContainer.style.display = 'none';
+                codContainer.style.display = 'block';
+                codOption.classList.add('active');
+                upiOption.classList.remove('active');
+                radioCod.checked = true;
+            }
+        }
+
+        function handlePaymentSubmit(event, method) {
+            event.preventDefault();
+
+            let txnId = "COD_PAYMENT";
+            if (method === 'UPI') {
+                txnId = document.getElementById('transaction_id').value;
+                if (!txnId) {
+                    alert("Please enter transaction / UTR number.");
+                    return;
+                }
+            }
+
+            let orders = JSON.parse(localStorage.getItem('ghar_orders')) || [];
+            let totalAmount = cart.reduce((tot, item) => tot + (item.price * item.quantity), 0);
+
+            const newOrder = {
+                id: Math.floor(100000 + Math.random() * 900000),
+                date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+                name: deliveryInfo.name,
+                phone: deliveryInfo.phone,
+                address: deliveryInfo.address,
+                parsed_cart: cart,
+                total: totalAmount,
+                paymentMethod: method,
+                transaction_id: txnId,
+                status: method === 'COD' ? 'Pending COD' : 'Verified'
+            };
+
+            orders.unshift(newOrder);
+            localStorage.setItem('ghar_orders', JSON.stringify(orders));
+
+            // Clear current cart and pending delivery
+            localStorage.removeItem('ghar_cart');
+            localStorage.removeItem('ghar_pending_delivery');
+
+            alert("🎉 Order placed successfully! Thank you for shopping with Gharwakhari.");
+            window.location.href = "account.html";
+        }
+    </script>
+</body>
+
+</html>
