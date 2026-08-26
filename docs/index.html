@@ -52,13 +52,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #fff;
+            background-color: #fafafa;
             padding: 10px;
         }
         .product-img img {
             max-height: 100%;
             max-width: 100%;
-            object-fit: contain;
+            object-fit: cover;
+            border-radius: 6px;
         }
         .product-details {
             padding: 18px;
@@ -257,21 +258,21 @@
             <h2 class="section-title">Shop by Category</h2>
             <div class="grid-4" style="gap: 20px;">
                 <div class="category-card" onclick="filterProducts('bottles')" style="cursor: pointer;">
-                    <img src="https://m.media-amazon.com/images/I/61N+zJ6U9eL._AC_SL1500_.jpg" alt="Bottles & Flasks">
+                    <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=800&auto=format&fit=crop" alt="Bottles & Flasks">
                     <div class="cat-info">
                         <h3>Bottles &amp; Flasks</h3>
                         <a href="#shop" onclick="filterProducts('bottles')">Explore Collection</a>
                     </div>
                 </div>
                 <div class="category-card" onclick="filterProducts('tiffins')" style="cursor: pointer;">
-                    <img src="https://www.milton.in/cdn/shop/files/Executive_3_Red_1.jpg?v=1716373763&width=1000" alt="Tiffins & Casseroles">
+                    <img src="https://images.unsplash.com/photo-1594614271360-0ed9a570ae15?q=80&w=800&auto=format&fit=crop" alt="Tiffins & Casseroles">
                     <div class="cat-info">
                         <h3>Tiffins &amp; Casseroles</h3>
                         <a href="#shop" onclick="filterProducts('tiffins')">Explore Collection</a>
                     </div>
                 </div>
                 <div class="category-card" onclick="filterProducts('cleaning')" style="cursor: pointer;">
-                    <img src="https://m.media-amazon.com/images/I/71J1xS6i4-L._SL1500_.jpg" alt="Home & Cleaning">
+                    <img src="https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=800&auto=format&fit=crop" alt="Home & Cleaning">
                     <div class="cat-info">
                         <h3>Home &amp; Cleaning</h3>
                         <a href="#shop" onclick="filterProducts('cleaning')">Explore Collection</a>
@@ -300,10 +301,10 @@
             </div>
             
             <div class="grid-4" style="gap: 25px;">
-                <!-- Product 1 -->
+                <!-- BOTTLES & FLASKS -->
                 <div class="product-card" data-category="bottles">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/61N+zJ6U9eL._AC_SL1500_.jpg" alt="Milton My Tumbler Travel Mug">
+                        <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?q=80&w=800&auto=format&fit=crop" alt="Milton My Tumbler Travel Mug">
                     </div>
                     <div class="product-details">
                         <div>
@@ -318,10 +319,9 @@
                     </div>
                 </div>
 
-                <!-- Product 2 -->
                 <div class="product-card" data-category="bottles">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/61pDqIqgCGL._SL1500_.jpg" alt="Cello Duro Jet Bottle">
+                        <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=800&auto=format&fit=crop" alt="Cello Duro Jet Bottle">
                     </div>
                     <div class="product-details">
                         <div>
@@ -336,10 +336,9 @@
                     </div>
                 </div>
 
-                <!-- Product 3 -->
                 <div class="product-card" data-category="bottles">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/61m1J8Hl2RL._SL1500_.jpg" alt="Cello Swift Vacuum Flask">
+                        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=800&auto=format&fit=crop" alt="Cello Swift Vacuum Flask">
                     </div>
                     <div class="product-details">
                         <div>
@@ -354,10 +353,9 @@
                     </div>
                 </div>
 
-                <!-- Product 4 -->
                 <div class="product-card" data-category="bottles">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/61b1CqCg3DL._SL1500_.jpg" alt="Cello Kidzee 3D Bottle">
+                        <img src="https://images.unsplash.com/photo-1589365278144-c9e705f843ba?q=80&w=800&auto=format&fit=crop" alt="Cello Kidzee 3D Bottle">
                     </div>
                     <div class="product-details">
                         <div>
@@ -372,10 +370,9 @@
                     </div>
                 </div>
 
-                <!-- Product 5 -->
                 <div class="product-card" data-category="bottles">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/61v4o1Kk-pL._SL1500_.jpg" alt="Splendid Cola Bottle">
+                        <img src="https://images.unsplash.com/photo-1523362628745-0c100150b504?q=80&w=800&auto=format&fit=crop" alt="Splendid Cola Bottle">
                     </div>
                     <div class="product-details">
                         <div>
@@ -390,10 +387,9 @@
                     </div>
                 </div>
 
-                <!-- Product 6 -->
                 <div class="product-card" data-category="bottles">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/71V2e7yvSBL._SL1500_.jpg" alt="Go24 Thermos Flask">
+                        <img src="https://images.unsplash.com/photo-1536939459926-301728717817?q=80&w=800&auto=format&fit=crop" alt="Go24 Thermos Flask">
                     </div>
                     <div class="product-details">
                         <div>
@@ -408,10 +404,9 @@
                     </div>
                 </div>
 
-                <!-- Product 7 -->
                 <div class="product-card" data-category="bottles">
                     <div class="product-img">
-                        <img src="https://www.milton.in/cdn/shop/files/Aura_1000_Black_1.jpg?v=1736934849&width=1240" alt="Milton Aura Bottle">
+                        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=800&auto=format&fit=crop" alt="Milton Aura Bottle">
                     </div>
                     <div class="product-details">
                         <div>
@@ -426,16 +421,15 @@
                     </div>
                 </div>
 
-                <!-- Product 8 -->
-                <div class="product-card" data-category="tiffins">
+                <div class="product-card" data-category="bottles">
                     <div class="product-img">
-                        <img src="https://www.milton.in/cdn/shop/files/Executive_3_Red_1.jpg?v=1716373763&width=1000" alt="Milton Executive Tiffin">
+                        <img src="https://images.unsplash.com/photo-1610824352934-c10d87b700cc?q=80&w=800&auto=format&fit=crop" alt="Copper Water Bottle">
                     </div>
                     <div class="product-details">
                         <div>
-                            <div class="tag"># Insulated Tiffin Set</div>
-                            <h4>Milton Executive Insulated Lunch Box Set</h4>
-                            <p class="price">₹899</p>
+                            <div class="tag"># Ayurvedic Copper Bottle</div>
+                            <h4>Pure Indian Copper Water Bottle (1000ml)</h4>
+                            <p class="price">₹999</p>
                         </div>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
@@ -444,16 +438,15 @@
                     </div>
                 </div>
 
-                <!-- Product 9 -->
-                <div class="product-card" data-category="tiffins">
+                <div class="product-card" data-category="bottles">
                     <div class="product-img">
-                        <img src="https://www.milton.in/cdn/shop/files/Microwow_1000_1.jpg?v=1716374000&width=1000" alt="Milton Casserole Set">
+                        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?q=80&w=800&auto=format&fit=crop" alt="Glass Bottle with Sleeve">
                     </div>
                     <div class="product-details">
                         <div>
-                            <div class="tag"># Hot Pot Casserole</div>
-                            <h4>Milton Stainless Steel Casserole / Hot Pot Set</h4>
-                            <p class="price">₹1,350</p>
+                            <div class="tag"># Glass Water Bottle</div>
+                            <h4>Borosilicate Glass Water Bottle with Protective Sleeve</h4>
+                            <p class="price">₹429</p>
                         </div>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
@@ -462,16 +455,15 @@
                     </div>
                 </div>
 
-                <!-- Product 10 -->
-                <div class="product-card" data-category="tiffins">
+                <div class="product-card" data-category="bottles">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/61Ff11l25SL._SL1500_.jpg" alt="Milton Big Lunch Tiffin">
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=800&auto=format&fit=crop" alt="Gym Shaker Bottle">
                     </div>
                     <div class="product-details">
                         <div>
-                            <div class="tag"># Insulated Tiffin</div>
-                            <h4>Milton Big Lunch Insulated Tiffin Box</h4>
-                            <p class="price">₹799</p>
+                            <div class="tag"># Sports &amp; Gym Bottle</div>
+                            <h4>Milton Stainless Steel Gym Shaker Bottle</h4>
+                            <p class="price">₹379</p>
                         </div>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
@@ -480,16 +472,15 @@
                     </div>
                 </div>
 
-                <!-- Product 11 -->
-                <div class="product-card" data-category="tiffins">
+                <div class="product-card" data-category="bottles">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/71R2h4YtYVL._SL1500_.jpg" alt="Rishabh Spice Box">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop" alt="Fruit Infuser Bottle">
                     </div>
                     <div class="product-details">
                         <div>
-                            <div class="tag"># Kitchen &amp; Spice Box</div>
-                            <h4>Rishabh Stainless Steel Spice Box (Masala Dabba)</h4>
-                            <p class="price">₹650</p>
+                            <div class="tag"># Infuser Bottle</div>
+                            <h4>Cello Lifestyle Fruit Infuser Detox Water Bottle</h4>
+                            <p class="price">₹549</p>
                         </div>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
@@ -498,15 +489,15 @@
                     </div>
                 </div>
 
-                <!-- Product 12 -->
+                <!-- HOME & CLEANING -->
                 <div class="product-card" data-category="cleaning">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/71J1xS6i4-L._SL1500_.jpg" alt="Godrej Aer Freshener">
+                        <img src="https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?q=80&w=800&auto=format&fit=crop" alt="Godrej Aer Freshener">
                     </div>
                     <div class="product-details">
                         <div>
                             <div class="tag"># Air Freshener</div>
-                            <h4>Godrej Aer Pocket &amp; Spray Air Freshener Combo</h4>
+                            <h4>Godrej Aer Pocket &amp; Air Spray Freshener Combo</h4>
                             <p class="price">₹299</p>
                         </div>
                         <div style="display: flex; gap: 10px;">
@@ -516,10 +507,9 @@
                     </div>
                 </div>
 
-                <!-- Product 13 -->
                 <div class="product-card" data-category="cleaning">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/61lYtQJ-cWL._SL1500_.jpg" alt="Camphor Cone">
+                        <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=800&auto=format&fit=crop" alt="Camphor Cone">
                     </div>
                     <div class="product-details">
                         <div>
@@ -534,10 +524,9 @@
                     </div>
                 </div>
 
-                <!-- Product 14 -->
                 <div class="product-card" data-category="cleaning">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/61r-G8hA2kL._SL1500_.jpg" alt="Dettol Handwash Set">
+                        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=800&auto=format&fit=crop" alt="Dettol Handwash Set">
                     </div>
                     <div class="product-details">
                         <div>
@@ -552,10 +541,9 @@
                     </div>
                 </div>
 
-                <!-- Product 15 -->
                 <div class="product-card" data-category="cleaning">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/61lR2N+Wl0L._SL1500_.jpg" alt="Colin Surface Cleaner">
+                        <img src="https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=800&auto=format&fit=crop" alt="Colin Surface Cleaner">
                     </div>
                     <div class="product-details">
                         <div>
@@ -570,10 +558,9 @@
                     </div>
                 </div>
 
-                <!-- Product 16 -->
                 <div class="product-card" data-category="cleaning">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/61N-+Xv-iDL._SL1500_.jpg" alt="Harpic Cleaner">
+                        <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=800&auto=format&fit=crop" alt="Harpic Cleaner">
                     </div>
                     <div class="product-details">
                         <div>
@@ -588,10 +575,9 @@
                     </div>
                 </div>
 
-                <!-- Product 17 -->
                 <div class="product-card" data-category="cleaning">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/71y+B-6-4FL._SL1500_.jpg" alt="Treo Glass Jar Set">
+                        <img src="https://images.unsplash.com/photo-1514986888952-8cd320577b68?q=80&w=800&auto=format&fit=crop" alt="Treo Glass Jar Set">
                     </div>
                     <div class="product-details">
                         <div>
@@ -606,7 +592,161 @@
                     </div>
                 </div>
 
-                <!-- Product 18 -->
+                <div class="product-card" data-category="cleaning">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1583947215259-38e31be8751f?q=80&w=800&auto=format&fit=crop" alt="Lizol Floor Cleaner">
+                    </div>
+                    <div class="product-details">
+                        <div>
+                            <div class="tag"># Floor &amp; Disinfectant</div>
+                            <h4>Lizol Disinfectant Floor Cleaner Citrus (1 Litre)</h4>
+                            <p class="price">₹245</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="cleaning">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?q=80&w=800&auto=format&fit=crop" alt="Vim Dishwash Gel">
+                    </div>
+                    <div class="product-details">
+                        <div>
+                            <div class="tag"># Dishwashing Gel</div>
+                            <h4>Vim Dishwash Liquid Gel Lemon (750ml)</h4>
+                            <p class="price">₹165</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="cleaning">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?q=80&w=800&auto=format&fit=crop" alt="Odonil Spray">
+                    </div>
+                    <div class="product-details">
+                        <div>
+                            <div class="tag"># Air Freshener</div>
+                            <h4>Odonil Room Air Freshener Spray Passion Fruit</h4>
+                            <p class="price">₹160</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="cleaning">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=800&auto=format&fit=crop" alt="Microfiber Duster">
+                    </div>
+                    <div class="product-details">
+                        <div>
+                            <div class="tag"># Cleaning Accessories</div>
+                            <h4>Microfiber Cleaning Cloth &amp; Duster Set of 5</h4>
+                            <p class="price">₹299</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="cleaning">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1628102491629-778571d893a3?q=80&w=800&auto=format&fit=crop" alt="Mosquito Repellent Machine">
+                    </div>
+                    <div class="product-details">
+                        <div>
+                            <div class="tag"># Pest Control</div>
+                            <h4>Good Knight Gold Flash Electric Repellent Machine + Refill</h4>
+                            <p class="price">₹140</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TIFFINS & CASSEROLES -->
+                <div class="product-card" data-category="tiffins">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1594614271360-0ed9a570ae15?q=80&w=800&auto=format&fit=crop" alt="Milton Executive Tiffin">
+                    </div>
+                    <div class="product-details">
+                        <div>
+                            <div class="tag"># Insulated Tiffin Set</div>
+                            <h4>Milton Executive Insulated Lunch Box Set</h4>
+                            <p class="price">₹899</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="tiffins">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1584992236310-6edddc08acff?q=80&w=800&auto=format&fit=crop" alt="Milton Casserole Set">
+                    </div>
+                    <div class="product-details">
+                        <div>
+                            <div class="tag"># Hot Pot Casserole</div>
+                            <h4>Milton Stainless Steel Casserole / Hot Pot Set</h4>
+                            <p class="price">₹1,350</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="tiffins">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1543362906-acfc16c67564?q=80&w=800&auto=format&fit=crop" alt="Milton Big Lunch Tiffin">
+                    </div>
+                    <div class="product-details">
+                        <div>
+                            <div class="tag"># Insulated Tiffin</div>
+                            <h4>Milton Big Lunch Insulated Tiffin Box</h4>
+                            <p class="price">₹799</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="tiffins">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=800&auto=format&fit=crop" alt="Rishabh Spice Box">
+                    </div>
+                    <div class="product-details">
+                        <div>
+                            <div class="tag"># Kitchen &amp; Spice Box</div>
+                            <h4>Rishabh Stainless Steel Spice Box (Masala Dabba)</h4>
+                            <p class="price">₹650</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HOME DECOR & GIFTS -->
                 <div class="product-card" data-category="home">
                     <div class="product-img">
                         <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=800&auto=format&fit=crop" alt="Mini Plant Pot">
@@ -624,10 +764,9 @@
                     </div>
                 </div>
 
-                <!-- Product 19 -->
                 <div class="product-card" data-category="home">
                     <div class="product-img">
-                        <img src="https://cdn.swadeshonline.com/v2/patient-paper-41f385/swad-p/wrkr/products/pictures/item/free/450x0/xKdTER1-r03-VDSPVS61BK87544_1.jpg" alt="Tripod Table Top Clock">
+                        <img src="https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=800&auto=format&fit=crop" alt="Tripod Table Top Clock">
                     </div>
                     <div class="product-details">
                         <div>
@@ -642,10 +781,9 @@
                     </div>
                 </div>
 
-                <!-- Product 20 -->
                 <div class="product-card" data-category="home">
                     <div class="product-img">
-                        <img src="https://m.media-amazon.com/images/I/71DQUYzVKXL._AC_SY400_.jpg" alt="Radha Krishna Frames">
+                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=800&auto=format&fit=crop" alt="Radha Krishna Frames">
                     </div>
                     <div class="product-details">
                         <div>
@@ -660,7 +798,6 @@
                     </div>
                 </div>
 
-                <!-- Product 21 -->
                 <div class="product-card" data-category="home">
                     <div class="product-img">
                         <img src="https://images.unsplash.com/photo-1590736969955-71cc94801759?q=80&w=600&auto=format&fit=crop" alt="Brass Vase">
@@ -670,24 +807,6 @@
                             <div class="tag"># Gift Item</div>
                             <h4>Brass Vintage Decorative Vase</h4>
                             <p class="price">₹1,299</p>
-                        </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
-                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 22 -->
-                <div class="product-card" data-category="home">
-                    <div class="product-img">
-                        <img src="https://bespokebliss.in/wp-content/uploads/2024/10/premium-corporate-gifts-and-festive-gift.jpg" alt="BesPoke Gift Set">
-                    </div>
-                    <div class="product-details">
-                        <div>
-                            <div class="tag"># Gift Item</div>
-                            <h4>BesPoke Bliss Festive Gift Set</h4>
-                            <p class="price">₹999</p>
                         </div>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
