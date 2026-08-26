@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharwakhari | Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #212529;
+        }
+
+        .header {
+            background-color: #343a40;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+
+        .main-content {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            border-top: 4px solid #701C1C;
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            color: #6c757d;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-card .value {
+            font-size: 26px;
+            font-weight: bold;
+            color: #212529;
+            margin-top: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #e9ecef;
+            color: #495057;
+            font-weight: 700;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #343a40;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge-status {
+            background: #28a745;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge-cod {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-seed {
+            background-color: #701C1C;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h2>🛍️ Gharwakhari Admin Dashboard</h2>
+        <div>
+            <span style="margin-right: 15px;">Welcome, <strong id="admin-name">Admin</strong></span>
+            <a href="index.html" style="color: #bbb; text-decoration: underline; margin-right: 15px;">View Store</a>
+            <a href="#" onclick="adminLogout()" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Total Orders</h3>
+                <div class="value" id="stat-total-orders">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Revenue</h3>
+                <div class="value" id="stat-total-revenue">₹0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Average Order Value</h3>
+                <div class="value" id="stat-avg-order">₹0</div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <span>Recent Orders & Customer Deliveries</span>
+            <button class="btn-seed" onclick="loadSampleOrders()"><i class="fas fa-database"></i> Add Sample Demo Data</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Items Ordered</th>
+                    <th>Total</th>
+                    <th>Payment Method / Txn ID</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="orders-table-body"></tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const admin = localStorage.getItem('ghar_admin') || 'Admin';
+            document.getElementById('admin-name').textContent = admin;
+
+            renderDashboard();
+        });
+
+        function renderDashboard() {
+            let orders = JSON.parse(localStorage.getItem('ghar_orders')) || [];
+            const tableBody = document.getElementById('orders-table-body');
+
+            let totalRevenue = 0;
+            orders.forEach(o => { totalRevenue += (o.total || 0); });
+            let avgValue = orders.length > 0 ? Math.round(totalRevenue / orders.length) : 0;
+
+            document.getElementById('stat-total-orders').textContent = orders.length;
+            document.getElementById('stat-total-revenue').textContent = '₹' + totalRevenue.toLocaleString('en-IN');
+            document.getElementById('stat-avg-order').textContent = '₹' + avgValue.toLocaleString('en-IN');
+
+            tableBody.innerHTML = '';
+            if (orders.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align:center; padding: 40px; color: #888;">
+                            No orders currently recorded. Click "Add Sample Demo Data" to populate test orders.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            orders.forEach(order => {
+                let itemsList = '';
+                if (order.parsed_cart && order.parsed_cart.length > 0) {
+                    itemsList = '<ul style="margin:0; padding-left:18px;">';
+                    order.parsed_cart.forEach(it => {
+                        itemsList += `<li>${it.name} (x${it.quantity})</li>`;
+                    });
+                    itemsList += '</ul>';
+                } else {
+                    itemsList = 'Standard Order Item';
+                }
+
+                const isCod = order.paymentMethod === 'COD';
+                const badgeClass = isCod ? 'badge-status badge-cod' : 'badge-status';
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>#OD${order.id}</strong></td>
+                    <td>${order.name}</td>
+                    <td>${order.phone}</td>
+                    <td>${order.address}</td>
+                    <td>${itemsList}</td>
+                    <td><strong>₹${(order.total || 0).toLocaleString('en-IN')}</strong></td>
+                    <td>${order.paymentMethod || 'UPI'}<br><small style="color:#666;">${order.transaction_id || ''}</small></td>
+                    <td><span class="${badgeClass}">${order.status || 'Verified'}</span></td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function loadSampleOrders() {
+            let sampleOrders = [
+                {
+                    id: 108492,
+                    date: '26 Aug 2026',
+                    name: 'Rajesh Sharma',
+                    phone: '9876543210',
+                    address: '102 Sun City Apartments, Satellite, Ahmedabad - 380015',
+                    parsed_cart: [
+                        { name: 'Tripod Table Top Clock', quantity: 1, price: 1699 },
+                        { name: 'Radha Krishna Wall Art Frames Set of 2', quantity: 1, price: 599 }
+                    ],
+                    total: 2298,
+                    paymentMethod: 'UPI',
+                    transaction_id: 'UTR309821092817',
+                    status: 'Verified'
+                },
+                {
+                    id: 108493,
+                    date: '25 Aug 2026',
+                    name: 'Priya Patel',
+                    phone: '9825012345',
+                    address: '15 Green Park Colony, SG Highway, Ahmedabad - 380054',
+                    parsed_cart: [
+                        { name: 'BesPoke Bliss Set', quantity: 2, price: 999 }
+                    ],
+                    total: 1998,
+                    paymentMethod: 'COD',
+                    transaction_id: 'COD_PAYMENT',
+                    status: 'Pending COD'
+                }
+            ];
+
+            let existing = JSON.parse(localStorage.getItem('ghar_orders')) || [];
+            localStorage.setItem('ghar_orders', JSON.stringify([...sampleOrders, ...existing]));
+            renderDashboard();
+        }
+
+        function adminLogout() {
+            localStorage.removeItem('ghar_admin');
+            alert("Admin logged out.");
+            window.location.href = "admin_login.html";
+        }
+    </script>
+</body>
+
+</html>
