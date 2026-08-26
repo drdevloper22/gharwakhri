@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharwakhari | Admin Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="auth-section">
+        <div class="auth-box">
+            <h1 class="brand-logo">Gharwakhari Admin</h1>
+            <p class="auth-subtitle">Welcome back. Enter your admin credentials.</p>
+
+            <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+                <div class="input-group">
+                    <input type="text" id="admin_user" required placeholder=" ">
+                    <label for="admin_user">Admin Username</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="admin_pass" required placeholder=" ">
+                    <label for="admin_pass">Password</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">LOGIN TO DASHBOARD</button>
+            </form>
+
+            <div class="switch-text" style="margin-top: 20px;">
+                <a href="admin_signup.html">Create Admin Account</a>
+            </div>
+            <div class="switch-text" style="margin-top: 10px;">
+                <a href="index.html" style="color: #555; font-size: 0.85rem; text-decoration: underline;"><i class="fas fa-arrow-left"></i> Back to Store</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const user = document.getElementById('admin_user').value.trim();
+            if (user) {
+                localStorage.setItem('ghar_admin', user);
+                alert(`Welcome Admin ${user}!`);
+                window.location.href = "admin_panel.html";
+            }
+        }
+    </script>
+</body>
+
+</html>
