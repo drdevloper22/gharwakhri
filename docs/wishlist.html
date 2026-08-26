@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharwakhari | My Wishlist</title>
+    <meta name="description" content="View your saved items in Gharwakhari Wishlist.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .wishlist-section {
+            padding: 60px 20px;
+            min-height: 70vh;
+            background-color: #fcfbf8;
+        }
+
+        .wishlist-container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .wishlist-header {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            color: var(--color-brown, #2c2926);
+        }
+
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+            gap: 15px;
+        }
+
+        .wishlist-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .wishlist-item-info {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+        .wishlist-item-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .wishlist-item-info p {
+            color: var(--color-maroon, #701C1C);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .btn-add-cart {
+            background-color: var(--color-maroon, #701C1C);
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            display: inline-block;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-add-cart:hover {
+            background-color: var(--color-gold, #C5A059);
+            color: #000;
+        }
+
+        .remove-btn {
+            color: #d9534f;
+            cursor: pointer;
+            font-size: 1.1rem;
+            border: none;
+            background: none;
+            padding: 5px;
+            margin-left: 10px;
+        }
+
+        .empty-wishlist {
+            text-align: center;
+            color: #777;
+            font-size: 1.2rem;
+            padding: 50px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Gharwakhari</a>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#shop">Shop</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li id="auth-nav-item"><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons" style="display: flex; align-items: center; gap: 15px;">
+                <a href="wishlist.html" class="wishlist-icon" title="View Wishlist" style="position: relative; color: var(--color-maroon); font-size: 1.3rem;">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count" style="position: absolute; top: -8px; right: -10px; background: var(--color-maroon); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.75rem; font-weight: bold;">0</span>
+                </a>
+                <a href="cart.html" class="cart-icon" title="View Cart" style="position: relative;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="wishlist-section">
+        <div class="wishlist-container">
+            <h2 class="wishlist-header">My Wishlist</h2>
+            <div id="wishlist-container"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Gharwakhari</h3>
+                    <p>Bringing the essence of Indian tradition to your modern lifestyle through premium decor and gifts.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="cart.html">My Cart</a></li>
+                        <li><a href="admin_login.html">Admin Portal</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/gharwakhari_hardikassociates" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Gharwakhari. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = localStorage.getItem('ghar_user');
+            const authNav = document.getElementById('auth-nav-item');
+            if (user && authNav) {
+                authNav.innerHTML = `<a href="account.html" style="color:var(--color-maroon); font-weight:bold;"><i class="fas fa-user-circle"></i> ${user}</a>`;
+            }
+
+            renderWishlist();
+        });
+
+        function renderWishlist() {
+            let wishlist = JSON.parse(localStorage.getItem('ghar_wishlist')) || [];
+            let cart = JSON.parse(localStorage.getItem('ghar_cart')) || [];
+            const container = document.getElementById('wishlist-container');
+            const wishlistCountEl = document.querySelector('.wishlist-count');
+            const cartCountEl = document.querySelector('.cart-count');
+
+            if (wishlistCountEl) wishlistCountEl.textContent = wishlist.length;
+            if (cartCountEl) cartCountEl.textContent = cart.reduce((tot, item) => tot + item.quantity, 0);
+
+            container.innerHTML = '';
+            if (wishlist.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-wishlist">
+                        <i class="far fa-heart" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+                        <p>Your wishlist is currently empty.</p>
+                        <a href="index.html#shop" class="btn btn-primary" style="margin-top: 15px; display: inline-block;">Browse Products</a>
+                    </div>
+                `;
+                return;
+            }
+
+            wishlist.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'wishlist-item';
+                div.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="wishlist-item-info">
+                        <h4>${item.name}</h4>
+                        <p>${item.priceText || '₹' + item.price}</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn-add-cart" onclick="moveToCart(${index})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        <button class="remove-btn" onclick="removeWishlistItem(${index})" title="Remove item"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function removeWishlistItem(index) {
+            let wishlist = JSON.parse(localStorage.getItem('ghar_wishlist')) || [];
+            wishlist.splice(index, 1);
+            localStorage.setItem('ghar_wishlist', JSON.stringify(wishlist));
+            renderWishlist();
+        }
+
+        function moveToCart(index) {
+            let wishlist = JSON.parse(localStorage.getItem('ghar_wishlist')) || [];
+            let cart = JSON.parse(localStorage.getItem('ghar_cart')) || [];
+            const item = wishlist[index];
+
+            if (!item) return;
+
+            const existingItem = cart.find(c => c.name === item.name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name: item.name, price: item.price, image: item.image, priceText: item.priceText, quantity: 1 });
+            }
+
+            localStorage.setItem('ghar_cart', JSON.stringify(cart));
+            alert(`"${item.name}" added to cart!`);
+            renderWishlist();
+        }
+    </script>
+</body>
+
+</html>
