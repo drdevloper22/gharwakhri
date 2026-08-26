@@ -116,11 +116,35 @@
     function filterProducts(category) {
         const products = document.querySelectorAll('.product-card');
         products.forEach(product => {
-            product.style.display = product.dataset.category === category ? "block" : "none";
+            if (category === 'all') {
+                product.style.display = "block";
+            } else {
+                product.style.display = product.dataset.category === category ? "block" : "none";
+            }
         });
-        document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
-    }
-</script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = localStorage.getItem('ghar_user');
+            const authNav = document.getElementById('auth-nav-item');
+            if (user && authNav) {
+                authNav.innerHTML = `
+                    <a href="account.html" style="color:var(--color-maroon); font-weight:bold;"><i class="fas fa-user-circle"></i> ${user}</a>
+                    <a href="#" onclick="localStorage.removeItem('ghar_user'); window.location.reload();" style="margin-left: 10px; font-size: 0.85rem; opacity: 0.8;"><i class="fas fa-sign-out-alt"></i></a>
+                `;
+            }
+        });
+
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product-card');
+            products.forEach(product => {
+                if (category === 'all') {
+                    product.style.display = "block";
+                } else {
+                    product.style.display = product.dataset.category === category ? "block" : "none";
+                }
+            });
+            document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
+        }
+    </script>
 
 <body>
 
@@ -140,12 +164,16 @@
                     <li><a href="#categories">Categories</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li><a href="login.html">Login</a></li>
+                    <li id="auth-nav-item"><a href="login.html">Login</a></li>
                 </ul>
             </nav>
 
-            <div class="header-icons">
-                <a href="cart.html" class="cart-icon">
+            <div class="header-icons" style="display: flex; align-items: center; gap: 15px;">
+                <a href="wishlist.html" class="wishlist-icon" title="View Wishlist" style="position: relative; color: inherit; font-size: 1.3rem;">
+                    <i class="far fa-heart"></i>
+                    <span class="wishlist-count" style="position: absolute; top: -8px; right: -10px; background: var(--color-maroon); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.75rem; font-weight: bold;">0</span>
+                </a>
+                <a href="cart.html" class="cart-icon" title="View Cart" style="position: relative;">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="9" cy="21" r="1"></circle>
@@ -199,14 +227,21 @@
     <section id="shop" class="section bg-cream">
         <div class="container">
             <h2 class="section-title">Featured Collection</h2>
+            <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="filterProducts('all')" style="font-size: 0.85rem; padding: 10px 22px;">All Products</button>
+                <button class="btn btn-outline" onclick="filterProducts('home')" style="font-size: 0.85rem; padding: 10px 22px;">Home Decor</button>
+                <button class="btn btn-outline" onclick="filterProducts('gift')" style="font-size: 0.85rem; padding: 10px 22px;">Gift Items</button>
+                <button class="btn btn-outline" onclick="filterProducts('life')" style="font-size: 0.85rem; padding: 10px 22px;">Life Style</button>
+            </div>
             <div class="grid-4">
+                <!-- Product 1 -->
                 <div class="product-card" data-category="home">
                     <div class="product-img">
-                        <img src="https://cdn.swadeshonline.com/v2/patient-paper-41f385/swad-p/wrkr/products/pictures/item/free/450x0/xKdTER1-r03-VDSPVS61BK87544_1.jpg" alt="clock">
+                        <img src="https://cdn.swadeshonline.com/v2/patient-paper-41f385/swad-p/wrkr/products/pictures/item/free/450x0/xKdTER1-r03-VDSPVS61BK87544_1.jpg" alt="Tripod Table Top Clock">
                     </div>
                     <div class="product-details">
                         <h4>Tripod Table Top Clock</h4>
-                        <h4># Home Decore Product</h4>
+                        <h4># Home Decor Product</h4>
                         <p class="price">₹1,699</p>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to cart</button>
@@ -214,13 +249,14 @@
                         </div>
                     </div>
                 </div>
+                <!-- Product 2 -->
                 <div class="product-card" data-category="gift">
                     <div class="product-img">
-                        <img src="https://images.unsplash.com/photo-1590736969955-71cc94801759?q=80&w=600&auto=format&fit=crop" alt="Vase">
+                        <img src="https://images.unsplash.com/photo-1590736969955-71cc94801759?q=80&w=600&auto=format&fit=crop" alt="Brass Vintage Vase">
                     </div>
                     <div class="product-details">
                         <h4>Brass Vintage Vase</h4>
-                        <h4># Gift Item </h4>
+                        <h4># Gift Item</h4>
                         <p class="price">₹1,299</p>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
@@ -228,13 +264,14 @@
                         </div>
                     </div>
                 </div>
+                <!-- Product 3 -->
                 <div class="product-card" data-category="home">
                     <div class="product-img">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkv8uww-K7uvCEfEJI2aoMq8S6rVf2SYeqjQ&s" alt="wardrobe">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkv8uww-K7uvCEfEJI2aoMq8S6rVf2SYeqjQ&s" alt="Wardrobe">
                     </div>
                     <div class="product-details">
-                        <h4>8 Dore Plastic Sheet Wardrobe </h4>
-                        <h4># Home Decore Product</h4>
+                        <h4>8 Dore Plastic Sheet Wardrobe</h4>
+                        <h4># Home Decor Product</h4>
                         <p class="price">₹2,150</p>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
@@ -242,13 +279,14 @@
                         </div>
                     </div>
                 </div>
+                <!-- Product 4 -->
                 <div class="product-card" data-category="gift">
                     <div class="product-img">
-                        <img src="https://bespokebliss.in/wp-content/uploads/2024/10/premium-corporate-gifts-and-festive-gift.jpg" alt="BesPoke">
+                        <img src="https://bespokebliss.in/wp-content/uploads/2024/10/premium-corporate-gifts-and-festive-gift.jpg" alt="BesPoke Bliss Set">
                     </div>
                     <div class="product-details">
-                        <h4>BesPoke Bliss Set </h4>
-                        <h4># Gift Item </h4>
+                        <h4>BesPoke Bliss Set</h4>
+                        <h4># Gift Item</h4>
                         <p class="price">₹999</p>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
@@ -256,13 +294,14 @@
                         </div>
                     </div>
                 </div>
+                <!-- Product 5 -->
                 <div class="product-card" data-category="life">
                     <div class="product-img">
-                        <img src="https://www.fridaycharm.com/cdn/shop/products/dL6ny8_1800x1800.jpg?v=1563883275" alt="perfume">
+                        <img src="https://www.fridaycharm.com/cdn/shop/products/dL6ny8_1800x1800.jpg?v=1563883275" alt="Gucci Perfume">
                     </div>
                     <div class="product-details">
-                        <h4>Gucci Oud Intense Eau De Parfum For Unisex </h4>
-                        <h4># Life Style </h4>
+                        <h4>Gucci Oud Intense Eau De Parfum</h4>
+                        <h4># Life Style</h4>
                         <p class="price">₹11,500</p>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
@@ -270,13 +309,14 @@
                         </div>
                     </div>
                 </div>
+                <!-- Product 6 -->
                 <div class="product-card" data-category="life">
                     <div class="product-img">
-                        <img src="https://images.samsung.com/is/image/samsung/p6pim/in/f2507/gallery/in-galaxy-watch8-classic-l505-sm-l505fzkains-thumb-547660119?$Q90_330_330_F_PNG$" alt="Watch">
+                        <img src="https://images.samsung.com/is/image/samsung/p6pim/in/f2507/gallery/in-galaxy-watch8-classic-l505-sm-l505fzkains-thumb-547660119?$Q90_330_330_F_PNG$" alt="Galaxy Watch">
                     </div>
                     <div class="product-details">
-                        <h4>Galaxy Watch8 Classic </h4>
-                        <h4># Life Style </h4>
+                        <h4>Galaxy Watch8 Classic</h4>
+                        <h4># Life Style</h4>
                         <p class="price">₹11,500</p>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
@@ -284,14 +324,150 @@
                         </div>
                     </div>
                 </div>
+                <!-- Product 7 -->
                 <div class="product-card" data-category="gift">
                     <div class="product-img">
                         <img src="https://www.milton.in/cdn/shop/files/Aura_1000_Black_1.jpg?v=1736934849&width=1240" alt="Milton Bottle">
                     </div>
                     <div class="product-details">
-                        <h4>Milton Aura 1000ml Bottle </h4>
-                        <h4># Gift </h4>
-                        <p class="price">₹11,500</p>
+                        <h4>Milton Aura 1000ml Bottle</h4>
+                        <h4># Gift Item</h4>
+                        <p class="price">₹499</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 8 - Radha Krishna Wall Painting -->
+                <div class="product-card" data-category="home">
+                    <div class="product-img">
+                        <img src="https://m.media-amazon.com/images/I/71DQUYzVKXL._AC_SY400_.jpg" alt="Radha Krishna Wall Painting Set">
+                    </div>
+                    <div class="product-details">
+                        <h4>Radha Krishna Wall Art Frames Set of 2</h4>
+                        <h4># Home Decor Product</h4>
+                        <p class="price">₹599</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 9 - Decorative Candle Holder -->
+                <div class="product-card" data-category="home">
+                    <div class="product-img">
+                        <img src="https://m.media-amazon.com/images/I/71RlMKXxpEL._AC_SY400_.jpg" alt="Decorative Candle Holder">
+                    </div>
+                    <div class="product-details">
+                        <h4>Metal Decorative Candle Holder Set</h4>
+                        <h4># Home Decor Product</h4>
+                        <p class="price">₹849</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 10 - Cushion Cover -->
+                <div class="product-card" data-category="home">
+                    <div class="product-img">
+                        <img src="https://m.media-amazon.com/images/I/81vJyRMFLoL._AC_SY400_.jpg" alt="Designer Cushion Covers">
+                    </div>
+                    <div class="product-details">
+                        <h4>Designer Velvet Cushion Covers Set of 5</h4>
+                        <h4># Home Decor Product</h4>
+                        <p class="price">₹699</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 11 - Jewelry Box -->
+                <div class="product-card" data-category="gift">
+                    <div class="product-img">
+                        <img src="https://m.media-amazon.com/images/I/71okiHQj2wL._AC_SY400_.jpg" alt="Wooden Jewelry Box">
+                    </div>
+                    <div class="product-details">
+                        <h4>Handcrafted Wooden Jewelry Box</h4>
+                        <h4># Gift Item</h4>
+                        <p class="price">₹1,199</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 12 - Sunglasses -->
+                <div class="product-card" data-category="life">
+                    <div class="product-img">
+                        <img src="https://m.media-amazon.com/images/I/51K3oB9u4RL._AC_SY400_.jpg" alt="Premium Sunglasses">
+                    </div>
+                    <div class="product-details">
+                        <h4>Premium Polarized Sunglasses</h4>
+                        <h4># Life Style</h4>
+                        <p class="price">₹1,899</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 13 - Leather Wallet -->
+                <div class="product-card" data-category="gift">
+                    <div class="product-img">
+                        <img src="https://m.media-amazon.com/images/I/71J0E-TUxcL._AC_SY400_.jpg" alt="Leather Wallet">
+                    </div>
+                    <div class="product-details">
+                        <h4>Premium Leather Wallet Gift Set</h4>
+                        <h4># Gift Item</h4>
+                        <p class="price">₹799</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 14 - Table Lamp -->
+                <div class="product-card" data-category="home">
+                    <div class="product-img">
+                        <img src="https://m.media-amazon.com/images/I/61EaIFwhmdL._AC_SY400_.jpg" alt="Decorative Table Lamp">
+                    </div>
+                    <div class="product-details">
+                        <h4>Decorative Bedside Table Lamp</h4>
+                        <h4># Home Decor Product</h4>
+                        <p class="price">₹1,450</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 15 - Yoga Mat -->
+                <div class="product-card" data-category="life">
+                    <div class="product-img">
+                        <img src="https://m.media-amazon.com/images/I/71E7JbvMHRL._AC_SY400_.jpg" alt="Premium Yoga Mat">
+                    </div>
+                    <div class="product-details">
+                        <h4>Premium Anti-Slip Yoga Mat</h4>
+                        <h4># Life Style</h4>
+                        <p class="price">₹1,299</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
+                            <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 16 - Tea Set -->
+                <div class="product-card" data-category="gift">
+                    <div class="product-img">
+                        <img src="https://m.media-amazon.com/images/I/71T2HEDh6GL._AC_SY400_.jpg" alt="Ceramic Tea Set">
+                    </div>
+                    <div class="product-details">
+                        <h4>Premium Ceramic Tea Set Gift Box</h4>
+                        <h4># Gift Item</h4>
+                        <p class="price">₹1,599</p>
                         <div style="display: flex; gap: 10px;">
                             <button class="btn btn-outline add-cart-btn" style="flex: 1;">Add to Cart</button>
                             <button class="btn btn-outline wishlist-btn" style="padding: 10px 15px; font-size: 1.2rem;" title="Add to Wishlist"><i class="far fa-heart"></i></button>
@@ -365,9 +541,10 @@
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="#">Shipping Policy</a></li>
-                        <li><a href="#">Returns</a></li>
                         <li><a href="contact.html">Contact</a></li>
+                        <li><a href="wishlist.html">My Wishlist</a></li>
+                        <li><a href="cart.html">My Cart</a></li>
+                        <li><a href="admin_login.html">Admin Portal</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
