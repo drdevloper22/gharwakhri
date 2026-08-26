@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account | Gharwakhari</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <section class="auth-section">
+        <div class="auth-box">
+            <h1 class="brand-logo">Gharwakhari</h1>
+            <h2>Create Account</h2>
+            <p class="auth-subtitle">Join the Gharwakhari Family</p>
+
+            <form id="signupForm" onsubmit="handleSignupSubmit(event)">
+                <div class="input-group">
+                    <input type="text" id="reg_username" placeholder=" " required minlength="3">
+                    <label for="reg_username">Username</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="reg_password" placeholder=" " required minlength="6">
+                    <label for="reg_password">Password</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="confirm_password" placeholder=" " required minlength="6" oninput="checkMatch()">
+                    <label for="confirm_password">Confirm Password</label>
+                </div>
+                <div id="matchHint" style="font-size: 12px; margin-top: -15px; margin-bottom: 10px;"></div>
+
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+
+            <p class="switch-text">
+                Already have an account?
+                <a href="login.html">Sign In</a>
+            </p>
+            <p class="switch-text" style="margin-top: 15px;">
+                <a href="index.html" style="color: #666; font-weight: normal;"><i class="fas fa-arrow-left"></i> Return to Store</a>
+            </p>
+        </div>
+    </section>
+
+    <script>
+        function checkMatch() {
+            const p = document.getElementById('reg_password').value;
+            const c = document.getElementById('confirm_password').value;
+            const hint = document.getElementById('matchHint');
+            if (!c) { hint.textContent = ''; return; }
+            if (p === c) {
+                hint.textContent = '✓ Passwords match';
+                hint.style.color = '#2ecc71';
+            } else {
+                hint.textContent = '✗ Passwords do not match';
+                hint.style.color = '#e74c3c';
+            }
+        }
+
+        function handleSignupSubmit(event) {
+            event.preventDefault();
+            const username = document.getElementById('reg_username').value.trim();
+            const p = document.getElementById('reg_password').value;
+            const c = document.getElementById('confirm_password').value;
+
+            if (p !== c) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            localStorage.setItem('ghar_user', username);
+            alert("Account created successfully! You are now logged in.");
+            window.location.href = "account.html";
+        }
+    </script>
+</body>
+
+</html>
